@@ -27,16 +27,25 @@ app.get('/projects', (req, res) => {
   res.render('projects', { tituloPagina: 'Projects' });
 });
 
-app.get('/categories', (req, res) => {
-  const categorias = [
-    'Environmental',
-    'Educational',
-    'Community Service',
-    'Health & Wellness'
-  ];
-  res.render('categories', { tituloPagina: 'Categories', categorias });
-});
-
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
 });
+
+import categoriesModel from './models/categories.js';
+
+app.get("/categories", async (req, res) => {
+
+    const categories =
+        await categoriesModel.getAllCategories()
+
+res.render("categories", {
+    title: "Categories",
+    categories: categories
+})
+})
+
+import pool from './database.js';
+
+pool.connect()
+  .then(() => console.log('Database connected'))
+  .catch(err => console.error(err));

@@ -5,3 +5,17 @@
         <% }) %>
     </ul>
 <%- include('partials/footer') %>
+
+<h1>Categories</h1>
+
+<ul>
+
+<% categories.forEach(category => { %>
+
+<li>
+<%= category.category_name %>
+</li>
+
+<% }) %>
+
+</ul>
