@@ -1,12 +1,17 @@
 <%- include('partials/header') %>
 
-<h1>Organizations</h1>
+<div class="org-grid">
 
-<ul>
+<% organizations.forEach((org, index) => { %>
 
-<% organizations.forEach(org => { %>
+<div class="org-card">
 
-<li>
+<img
+  src="/images/org<%= index + 1 %>.jpg"
+  alt="<%= org.organization_name %>"
+>
+
+<h3>
 
 <a href="/organizations/<%= org.organization_id %>">
 
@@ -14,10 +19,16 @@
 
 </a>
 
-</li>
+</h3>
+
+<p>
+<%= org.organization_description %>
+</p>
+
+</div>
 
 <% }) %>
 
-</ul>
+</div>
 
 <%- include('partials/footer') %>

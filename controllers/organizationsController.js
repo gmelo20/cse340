@@ -1,31 +1,32 @@
-import organizationsModel
-from '../models/organizations.js';
+import organizationsModel from '../models/organizations.js';
 
 async function buildOrganizations(req, res) {
 
-    const organizations =
+  const organizations =
     await organizationsModel.getAllOrganizations();
 
-    res.render('organizations', {
-        title: 'Organizations',
-        organizations
-    });
+  res.render('organizations', {
+    title: 'Organizations',
+    organizations: organizations
+  });
+
 }
 
 async function buildOrganizationById(req, res) {
 
-    const organization =
-    await organizationsModel.getOrganizationById(
-        req.params.organizationId
-    );
+  const id = req.params.id;
 
-    res.render('organization-details', {
-        title: organization.organization_name,
-        organization
-    });
+  const organization =
+    await organizationsModel.getOrganizationById(id);
+
+  res.render('organization-details', {
+    title: organization.organization_name,
+    organization: organization
+  });
+
 }
 
 export default {
-    buildOrganizations,
-    buildOrganizationById
+  buildOrganizations,
+  buildOrganizationById
 };

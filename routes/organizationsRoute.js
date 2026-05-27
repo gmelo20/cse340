@@ -6,13 +6,13 @@ from '../controllers/organizationsController.js';
 const router = express.Router();
 
 router.get(
-    '/',
-    organizationsController.buildOrganizations
+  '/',
+  organizationsController.buildOrganizations
 );
 
 router.get(
-    '/:organizationId',
-    organizationsController.buildOrganizationById
+  '/:id',
+  organizationsController.buildOrganizationById
 );
 
 export default router;

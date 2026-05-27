@@ -1,15 +1,11 @@
 <%- include('partials/header') %>
 
-<h1>
+<h1><%= organization.organization_name %></h1>
 
-<%= organization.organization_name %>
+<p>Email: <%= organization.organization_email %></p>
 
-</h1>
+<p>Phone: <%= organization.organization_phone %></p>
 
-<p>
-
-<%= organization.organization_description %>
-
-</p>
+<p>Address: <%= organization.organization_address %></p>
 
 <%- include('partials/footer') %>

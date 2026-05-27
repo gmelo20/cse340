@@ -5,24 +5,22 @@ import { fileURLToPath } from 'url';
 
 import pool from './database.js';
 
-import categoriesRoute
-from './routes/categoriesRoute.js';
-
-import projectsRoute
-from './routes/projectsRoute.js';
+import categoriesRoute from './routes/categoriesRoute.js';
+import projectsRoute from './routes/projectsRoute.js';
+import organizationsRoute from './routes/organizationsRoute.js';
 
 dotenv.config();
 
-const __filename =
-fileURLToPath(import.meta.url);
-
-const __dirname =
-path.dirname(__filename);
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 
-const PORT =
-process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000;
+
+/*
+VIEW ENGINE
+*/
 
 app.set('view engine', 'ejs');
 
@@ -31,53 +29,53 @@ app.set(
   path.join(__dirname, 'views')
 );
 
+/*
+STATIC FILES
+*/
+
 app.use(
   express.static(
     path.join(__dirname, 'public')
   )
 );
 
+/*
+DATABASE
+*/
+
 pool.connect()
-  .then(() =>
-    console.log('Database connected')
-  )
-  .catch(err =>
-    console.error(err)
-  );
+  .then(() => {
+    console.log('Database connected');
+  })
+  .catch((err) => {
+    console.error(err);
+  });
+
+/*
+HOME
+*/
 
 app.get('/', (req, res) => {
 
   res.render('home', {
-    tituloPagina: 'Home'
+    title: 'Home'
   });
 
 });
 
-app.get('/organizations', (req, res) => {
+/*
+ROUTES
+*/
 
-  res.render('organizations', {
-    tituloPagina: 'Organizations'
-  });
+app.use('/', categoriesRoute);
 
-});
+app.use('/project', projectsRoute);
 
-app.get('/projects', (req, res) => {
+app.use('/organizations', organizationsRoute);
 
-  res.render('projects', {
-    tituloPagina: 'Projects'
-  });
-
-});
-
-app.use(
-  '/',
-  categoriesRoute
-);
-
-app.use(
-  '/project',
-  projectsRoute
-);
+/*
+404 PAGE
+*/
 
 app.use((req, res) => {
 
@@ -86,6 +84,10 @@ app.use((req, res) => {
   });
 
 });
+
+/*
+500 PAGE
+*/
 
 app.use((err, req, res, next) => {
 
@@ -97,6 +99,10 @@ app.use((err, req, res, next) => {
 
 });
 
+/*
+SERVER
+*/
+
 app.listen(PORT, () => {
 
   console.log(
@@ -104,11 +110,3 @@ app.listen(PORT, () => {
   );
 
 });
-
-import organizationsRoute
-from './routes/organizationsRoute.js';
-
-app.use(
-  '/organizations',
-  organizationsRoute
-);
