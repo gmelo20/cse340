@@ -104,3 +104,11 @@ app.listen(PORT, () => {
   );
 
 });
+
+import organizationsRoute
+from './routes/organizationsRoute.js';
+
+app.use(
+  '/organizations',
+  organizationsRoute
+);
