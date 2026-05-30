@@ -8,19 +8,28 @@
 
     <% categories.forEach(category => { %>
 
-        <li>
+<li>
 
-            <a href="/categories/<%= category.category_id %>">
+  <a href="/categories/<%= category.category_id %>">
+    <%= category.category_name %>
+  </a>
 
-                <%= category.category_name %>
+  |
 
-            </a>
+  <a href="/edit-category/<%= category.category_id %>">
+    Edit
+  </a>
 
-        </li>
+</li>
 
     <% }) %>
 
     </ul>
+<br>
+
+<a href="/new-category" class="btn">
+  Add Category
+</a>
 
 </div>
 
