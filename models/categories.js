@@ -2,60 +2,50 @@ import pool from '../database.js';
 
 async function getAllCategories() {
 
-    const data =
-        await pool.query(
-            'SELECT * FROM categories'
-        );
+  const result = await pool.query(`
+    SELECT *
+    FROM categories
+    ORDER BY category_name
+  `);
 
-    return data.rows;
+  return result.rows;
 }
 
-async function getCategoryById(categoryId) {
+async function getCategoryById(id) {
 
-    const data =
-        await pool.query(
-            'SELECT * FROM categories WHERE category_id = $1',
-            [categoryId]
-        );
+  const result = await pool.query(`
+    SELECT *
+    FROM categories
+    WHERE category_id = $1
+  `, [id]);
 
-    return data.rows[0];
+  return result.rows[0];
 }
 
-async function getProjectsByCategory(categoryId) {
+async function createCategory(name) {
 
-    const data = await pool.query(`
-        SELECT projects.*
-        FROM projects
-        JOIN projects_categories
-        ON projects.project_id = projects_categories.project_id
-        WHERE projects_categories.category_id = $1
-    `, [categoryId]);
+  await pool.query(`
+    INSERT INTO categories (
+      category_name
+    )
+    VALUES ($1)
+  `, [name]);
 
-    return data.rows;
+}
+
+async function updateCategory(id, name) {
+
+  await pool.query(`
+    UPDATE categories
+    SET category_name = $1
+    WHERE category_id = $2
+  `, [name, id]);
+
 }
 
 export default {
-
-    getAllCategories,
-
-    getCategoryById,
-
-    getProjectsByCategory,
-
-    getCategoriesByProject
-
+  getAllCategories,
+  getCategoryById,
+  createCategory,
+  updateCategory
 };
-
-async function getCategoriesByProject(projectId) {
-
-    const data = await pool.query(`
-        SELECT categories.*
-        FROM categories
-        JOIN projects_categories
-        ON categories.category_id =
-        projects_categories.category_id
-        WHERE projects_categories.project_id = $1
-    `, [projectId]);
-
-    return data.rows;
-}

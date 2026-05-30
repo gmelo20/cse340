@@ -4,6 +4,17 @@ from '../models/projects.js';
 import categoriesModel
 from '../models/categories.js';
 
+async function buildProjects(req, res) {
+
+    const projects =
+        await projectsModel.getAllProjects();
+
+    res.render('projects', {
+        title: 'Projects',
+        projects
+    });
+}
+
 async function buildProjectById(req, res) {
 
     const projectId =
@@ -31,5 +42,6 @@ async function buildProjectById(req, res) {
 }
 
 export default {
+    buildProjects,
     buildProjectById
 };

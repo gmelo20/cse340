@@ -18,6 +18,8 @@ const app = express();
 
 const PORT = process.env.PORT || 3000;
 
+app.use(express.urlencoded({ extended: true }));
+
 /*
 VIEW ENGINE
 */
@@ -69,7 +71,7 @@ ROUTES
 
 app.use('/', categoriesRoute);
 
-app.use('/project', projectsRoute);
+app.use('/projects', projectsRoute);
 
 app.use('/organizations', organizationsRoute);
 
@@ -110,3 +112,4 @@ app.listen(PORT, () => {
   );
 
 });
+

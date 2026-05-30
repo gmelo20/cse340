@@ -1,5 +1,17 @@
 import pool from '../database.js';
 
+async function getAllProjects() {
+
+    const data = await pool.query(`
+        SELECT *
+        FROM projects
+        ORDER BY project_id
+        LIMIT 5
+    `);
+
+    return data.rows;
+}
+
 async function getProjectById(projectId) {
 
     const data = await pool.query(`
@@ -12,5 +24,6 @@ async function getProjectById(projectId) {
 }
 
 export default {
+    getAllProjects,
     getProjectById
 };

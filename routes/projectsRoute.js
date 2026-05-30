@@ -7,6 +7,11 @@ import projectsController
 from '../controllers/projectsController.js';
 
 router.get(
+    '/',
+    projectsController.buildProjects
+);
+
+router.get(
     '/:projectId',
     projectsController.buildProjectById
 );
