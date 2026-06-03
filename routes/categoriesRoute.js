@@ -1,38 +1,37 @@
 import express from 'express';
 
-const router = express.Router();
+import categoryController from '../controllers/categoryController.js';
 
-import categoriesController
-from '../controllers/categoriesController.js';
+const router = express.Router();
 
 router.get(
   '/categories',
-  categoriesController.buildCategories
+  categoryController.buildCategories
 );
 
 router.get(
   '/new-category',
-  categoriesController.buildNewCategory
+  categoryController.buildNewCategory
 );
 
 router.post(
   '/new-category',
-  categoriesController.createCategory
+  categoryController.createCategory
 );
 
 router.get(
   '/edit-category/:id',
-  categoriesController.buildEditCategory
+  categoryController.buildEditCategory
 );
 
 router.post(
   '/edit-category/:id',
-  categoriesController.updateCategory
+  categoryController.updateCategory
 );
 
 router.get(
   '/categories/:id',
-  categoriesController.buildCategoryById
+  categoryController.buildCategoryById
 );
 
 export default router;

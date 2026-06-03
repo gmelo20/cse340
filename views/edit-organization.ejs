@@ -1,0 +1,24 @@
+<h1>Edit Organization</h1>
+
+<% if (errors.length > 0) { %>
+  <ul>
+    <% errors.forEach(function(error) { %>
+      <li><%= error %></li>
+    <% }) %>
+  </ul>
+<% } %>
+
+<form action="/organizations/edit-organization/<%= organization.organization_id %>" method="POST">
+
+  <label for="organization_name">Organization Name</label>
+  <input
+    type="text"
+    id="organization_name"
+    name="organization_name"
+    value="<%= organization.organization_name %>"
+    required
+  />
+
+  <button type="submit">Update Organization</button>
+
+</form>

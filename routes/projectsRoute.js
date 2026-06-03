@@ -1,19 +1,17 @@
 import express from 'express';
 
-const router =
-express.Router();
+import projectController from '../controllers/projectController.js';
 
-import projectsController
-from '../controllers/projectsController.js';
+const router = express.Router();
 
 router.get(
-    '/',
-    projectsController.buildProjects
+  '/',
+  projectController.buildProjects
 );
 
 router.get(
-    '/:projectId',
-    projectsController.buildProjectById
+  '/:projectId',
+  projectController.buildProjectById
 );
 
 export default router;

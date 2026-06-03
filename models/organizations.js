@@ -9,6 +9,7 @@ async function getAllOrganizations() {
   `);
 
   return result.rows;
+
 }
 
 async function getOrganizationById(id) {
@@ -20,9 +21,33 @@ async function getOrganizationById(id) {
   `, [id]);
 
   return result.rows[0];
+
+}
+
+async function createOrganization(name) {
+
+  await pool.query(`
+    INSERT INTO organizations (
+      organization_name
+    )
+    VALUES ($1)
+  `, [name]);
+
+}
+
+async function updateOrganization(id, name) {
+
+  await pool.query(`
+    UPDATE organizations
+    SET organization_name = $1
+    WHERE organization_id = $2
+  `, [name, id]);
+
 }
 
 export default {
   getAllOrganizations,
-  getOrganizationById
+  getOrganizationById,
+  createOrganization,
+  updateOrganization
 };

@@ -9,6 +9,7 @@ async function getAllCategories() {
   `);
 
   return result.rows;
+
 }
 
 async function getCategoryById(id) {
@@ -20,6 +21,22 @@ async function getCategoryById(id) {
   `, [id]);
 
   return result.rows[0];
+
+}
+
+async function getCategoriesByProject(projectId) {
+
+  const result = await pool.query(`
+    SELECT c.*
+    FROM categories c
+    JOIN project_categories pc
+      ON c.category_id = pc.category_id
+    WHERE pc.project_id = $1
+    ORDER BY c.category_name
+  `, [projectId]);
+
+  return result.rows;
+
 }
 
 async function createCategory(name) {
@@ -46,6 +63,7 @@ async function updateCategory(id, name) {
 export default {
   getAllCategories,
   getCategoryById,
+  getCategoriesByProject,
   createCategory,
   updateCategory
 };

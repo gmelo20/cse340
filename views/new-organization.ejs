@@ -1,0 +1,23 @@
+<h1>New Organization</h1>
+
+<% if (errors.length > 0) { %>
+  <ul>
+    <% errors.forEach(function(error) { %>
+      <li><%= error %></li>
+    <% }) %>
+  </ul>
+<% } %>
+
+<form action="/organizations/new-organization" method="POST">
+
+  <label for="organization_name">Organization Name</label>
+  <input
+    type="text"
+    id="organization_name"
+    name="organization_name"
+    required
+  />
+
+  <button type="submit">Create Organization</button>
+
+</form>

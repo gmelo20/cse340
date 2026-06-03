@@ -1,13 +1,35 @@
-import categoriesModel from '../models/categories.js';
+import categoryModel from '../models/category-model.js';
 
 async function buildCategories(req, res) {
 
   const categories =
-    await categoriesModel.getAllCategories();
+    await categoryModel.getAllCategories();
 
   res.render('categories', {
     title: 'Categories',
     categories
+  });
+
+}
+
+async function buildCategoryById(req, res) {
+
+  const id = req.params.id;
+
+  const category =
+    await categoryModel.getCategoryById(id);
+
+  if (!category) {
+
+    return res.status(404).render('404', {
+      title: 'Category Not Found'
+    });
+
+  }
+
+  res.render('category-details', {
+    title: category.category_name,
+    category
   });
 
 }
@@ -35,7 +57,7 @@ async function createCategory(req, res) {
 
   }
 
-  if (category_name.length < 3) {
+  if (category_name && category_name.length < 3) {
 
     errors.push(
       'Category name must have at least 3 characters.'
@@ -43,7 +65,7 @@ async function createCategory(req, res) {
 
   }
 
-  if (category_name.length > 100) {
+  if (category_name && category_name.length > 100) {
 
     errors.push(
       'Category name must have a maximum of 100 characters.'
@@ -62,17 +84,13 @@ async function createCategory(req, res) {
 
   try {
 
-    await categoriesModel.createCategory(
-      category_name
-    );
+    await categoryModel.createCategory(category_name);
 
     res.redirect('/categories');
 
   } catch (error) {
 
-    errors.push(
-      'Category already exists.'
-    );
+    errors.push('Category already exists.');
 
     res.render('new-category', {
       title: 'New Category',
@@ -88,7 +106,7 @@ async function buildEditCategory(req, res) {
   const id = req.params.id;
 
   const category =
-    await categoriesModel.getCategoryById(id);
+    await categoryModel.getCategoryById(id);
 
   res.render('edit-category', {
     title: 'Edit Category',
@@ -114,7 +132,7 @@ async function updateCategory(req, res) {
 
   }
 
-  if (category_name.length < 3) {
+  if (category_name && category_name.length < 3) {
 
     errors.push(
       'Category name must have at least 3 characters.'
@@ -122,7 +140,7 @@ async function updateCategory(req, res) {
 
   }
 
-  if (category_name.length > 100) {
+  if (category_name && category_name.length > 100) {
 
     errors.push(
       'Category name must have a maximum of 100 characters.'
@@ -145,18 +163,13 @@ async function updateCategory(req, res) {
 
   try {
 
-    await categoriesModel.updateCategory(
-      id,
-      category_name
-    );
+    await categoryModel.updateCategory(id, category_name);
 
     res.redirect('/categories');
 
   } catch (error) {
 
-    errors.push(
-      'Error updating category.'
-    );
+    errors.push('Error updating category.');
 
     res.render('edit-category', {
       title: 'Edit Category',
@@ -168,28 +181,6 @@ async function updateCategory(req, res) {
     });
 
   }
-
-}
-
-async function buildCategoryById(req, res) {
-
-  const id = req.params.id;
-
-  const category =
-    await categoriesModel.getCategoryById(id);
-
-  if (!category) {
-
-    return res.status(404).render('404', {
-      title: 'Category Not Found'
-    });
-
-  }
-
-  res.render('category-details', {
-    title: category.category_name,
-    category
-  });
 
 }
 

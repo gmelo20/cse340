@@ -5,9 +5,10 @@ import { fileURLToPath } from 'url';
 
 import pool from './database.js';
 
-import categoriesRoute from './routes/categoriesRoute.js';
-import projectsRoute from './routes/projectsRoute.js';
-import organizationsRoute from './routes/organizationsRoute.js';
+import staticRoute from './routes/static.js';
+import categoryRoute from './routes/categoryRoute.js';
+import projectRoute from './routes/projectRoute.js';
+import organizationRoute from './routes/organizationRoute.js';
 
 dotenv.config();
 
@@ -54,26 +55,16 @@ pool.connect()
   });
 
 /*
-HOME
-*/
-
-app.get('/', (req, res) => {
-
-  res.render('home', {
-    title: 'Home'
-  });
-
-});
-
-/*
 ROUTES
 */
 
-app.use('/', categoriesRoute);
+app.use('/', staticRoute);
 
-app.use('/projects', projectsRoute);
+app.use('/', categoryRoute);
 
-app.use('/organizations', organizationsRoute);
+app.use('/projects', projectRoute);
+
+app.use('/organizations', organizationRoute);
 
 /*
 404 PAGE
@@ -112,4 +103,3 @@ app.listen(PORT, () => {
   );
 
 });
-
