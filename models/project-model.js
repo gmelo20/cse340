@@ -25,7 +25,32 @@ async function getProjectById(projectId) {
 
 }
 
+async function createProject(name, description) {
+
+  await pool.query(`
+    INSERT INTO projects (
+      project_name,
+      project_description
+    )
+    VALUES ($1, $2)
+  `, [name, description]);
+
+}
+
+async function updateProject(id, name, description) {
+
+  await pool.query(`
+    UPDATE projects
+    SET project_name = $1,
+        project_description = $2
+    WHERE project_id = $3
+  `, [name, description, id]);
+
+}
+
 export default {
   getAllProjects,
-  getProjectById
+  getProjectById,
+  createProject,
+  updateProject
 };

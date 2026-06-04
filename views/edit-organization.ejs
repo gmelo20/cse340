@@ -1,3 +1,5 @@
+<%- include('partials/header') %>
+
 <h1>Edit Organization</h1>
 
 <% if (errors.length > 0) { %>
@@ -16,9 +18,12 @@
     id="organization_name"
     name="organization_name"
     value="<%= organization.organization_name %>"
+    maxlength="100"
     required
   />
 
   <button type="submit">Update Organization</button>
 
 </form>
+
+<%- include('partials/footer') %>

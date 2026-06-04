@@ -1,33 +1,33 @@
 <%- include('partials/header') %>
 
+<h1>Organizations</h1>
+
+<a href="/organizations/new-organization">New Organization</a>
+
 <div class="org-grid">
 
-<% organizations.forEach((org, index) => { %>
+  <% organizations.forEach((org, index) => { %>
 
-<div class="org-card">
+    <div class="org-card">
 
-<img
-  src="/images/org<%= index + 1 %>.jpg"
-  alt="<%= org.organization_name %>"
->
+      <img
+        src="/images/org<%= index + 1 %>.jpg"
+        alt="<%= org.organization_name %>"
+      >
 
-<h3>
+      <h3>
+        <a href="/organizations/<%= org.organization_id %>">
+          <%= org.organization_name %>
+        </a>
+      </h3>
 
-<a href="/organizations/<%= org.organization_id %>">
+      <p><%= org.organization_description %></p>
 
-<%= org.organization_name %>
+      <a href="/organizations/edit-organization/<%= org.organization_id %>">Edit</a>
 
-</a>
+    </div>
 
-</h3>
-
-<p>
-<%= org.organization_description %>
-</p>
-
-</div>
-
-<% }) %>
+  <% }) %>
 
 </div>
 

@@ -1,6 +1,6 @@
 <%- include('partials/header') %>
 
-<h1>New Project</h1>
+<h1>Edit Project</h1>
 
 <% if (errors.length > 0) { %>
   <ul>
@@ -10,14 +10,14 @@
   </ul>
 <% } %>
 
-<form action="/projects/new-project" method="POST">
+<form action="/projects/edit-project/<%= project.project_id %>" method="POST">
 
   <label for="project_name">Project Name</label>
   <input
     type="text"
     id="project_name"
     name="project_name"
-    value="<%= typeof project_name !== 'undefined' ? project_name : '' %>"
+    value="<%= project.project_name %>"
     maxlength="100"
     required
   />
@@ -27,9 +27,9 @@
     id="project_description"
     name="project_description"
     maxlength="100"
-  ><%= typeof project_description !== 'undefined' ? project_description : '' %></textarea>
+  ><%= project.project_description %></textarea>
 
-  <button type="submit">Create Project</button>
+  <button type="submit">Update Project</button>
 
 </form>
 
