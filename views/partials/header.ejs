@@ -10,7 +10,7 @@
       content="width=device-width, initial-scale=1.0"
     >
 
-<title><%= title %> | Community Service</title>
+    <title><%= title %> | Community Service</title>
 
     <link
       rel="stylesheet"
@@ -38,22 +38,38 @@
                 </li>
 
                 <li>
-                    <a href="/organizations">
-                      Organizations
-                    </a>
+                    <a href="/organizations">Organizations</a>
                 </li>
 
                 <li>
-                    <a href="/categories">
-                      Categories
-                    </a>
+                    <a href="/categories">Categories</a>
                 </li>
 
                 <li>
-                    <a href="/projects">
-                      Projects
-                    </a>
+                    <a href="/projects">Projects</a>
                 </li>
+
+                <% if (locals.user || (typeof session !== 'undefined' && session && session.user)) { %>
+
+                  <li>
+                    <a href="/account">Dashboard</a>
+                  </li>
+
+                  <li>
+                    <a href="/account/logout">Logout</a>
+                  </li>
+
+                <% } else { %>
+
+                  <li>
+                    <a href="/account/login">Login</a>
+                  </li>
+
+                  <li>
+                    <a href="/account/register">Register</a>
+                  </li>
+
+                <% } %>
 
             </ul>
 

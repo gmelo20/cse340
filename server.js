@@ -2,6 +2,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import session from 'express-session';
 
 import pool from './database.js';
 
@@ -9,6 +10,7 @@ import staticRoute from './routes/static.js';
 import categoryRoute from './routes/categoryRoute.js';
 import projectRoute from './routes/projectRoute.js';
 import organizationRoute from './routes/organizationRoute.js';
+import accountRoute from './routes/accountRoute.js';
 
 dotenv.config();
 
@@ -20,6 +22,17 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(express.urlencoded({ extended: true }));
+
+/*
+SESSION
+*/
+
+app.use(session({
+  secret: process.env.SESSION_SECRET || 'cse340secret',
+  resave: false,
+  saveUninitialized: false,
+  cookie: { maxAge: 1000 * 60 * 60 * 24 }
+}));
 
 /*
 VIEW ENGINE
@@ -65,6 +78,8 @@ app.use('/', categoryRoute);
 app.use('/projects', projectRoute);
 
 app.use('/organizations', organizationRoute);
+
+app.use('/account', accountRoute);
 
 /*
 404 PAGE

@@ -1,0 +1,21 @@
+<%- include('partials/header') %>
+
+<p>Welcome, <%= user.user_firstname %>!</p>
+
+<ul>
+
+  <li><a href="/categories">Manage Categories</a></li>
+
+  <li><a href="/organizations">Manage Organizations</a></li>
+
+  <li><a href="/projects">Manage Projects</a></li>
+
+  <% if (user.user_role === 'admin') { %>
+
+    <li><a href="/account/users">Manage Users</a></li>
+
+  <% } %>
+
+</ul>
+
+<%- include('partials/footer') %>
