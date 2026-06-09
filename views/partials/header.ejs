@@ -49,27 +49,27 @@
                     <a href="/projects">Projects</a>
                 </li>
 
-                <% if (locals.user || (typeof session !== 'undefined' && session && session.user)) { %>
+<% if (locals.user) { %>
 
-                  <li>
-                    <a href="/account">Dashboard</a>
-                  </li>
+  <li>
+    <a href="/account">Dashboard</a>
+  </li>
 
-                  <li>
-                    <a href="/account/logout">Logout</a>
-                  </li>
+  <li>
+    <a href="/account/logout">Logout</a>
+  </li>
 
-                <% } else { %>
+<% } else { %>
 
-                  <li>
-                    <a href="/account/login">Login</a>
-                  </li>
+  <li>
+    <a href="/account/login">Login</a>
+  </li>
 
-                  <li>
-                    <a href="/account/register">Register</a>
-                  </li>
+  <li>
+    <a href="/account/register">Register</a>
+  </li>
 
-                <% } %>
+<% } %>
 
             </ul>
 

@@ -12,6 +12,7 @@ import projectRoute from './routes/projectRoute.js';
 import organizationRoute from './routes/organizationRoute.js';
 import accountRoute from './routes/accountRoute.js';
 import volunteerRoute from './routes/volunteerRoute.js';
+import setLocals from './middleware/locals.js';
 
 dotenv.config();
 
@@ -34,6 +35,12 @@ app.use(session({
   saveUninitialized: false,
   cookie: { maxAge: 1000 * 60 * 60 * 24 }
 }));
+
+/*
+LOCALS
+*/
+
+app.use(setLocals);
 
 /*
 VIEW ENGINE
