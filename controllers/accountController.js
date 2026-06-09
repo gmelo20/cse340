@@ -2,6 +2,8 @@ import bcrypt from 'bcrypt';
 
 import userModel from '../models/user-model.js';
 
+import volunteerModel from '../models/volunteer-model.js';
+
 async function buildLogin(req, res) {
 
   const message = req.session.message || null;
@@ -145,9 +147,15 @@ async function registerUser(req, res) {
 
 async function buildDashboard(req, res) {
 
+  const volunteeredProjects =
+    await volunteerModel.getProjectsByVolunteer(
+      req.session.user.user_id
+    );
+
   res.render('dashboard', {
     title: 'Dashboard',
-    user: req.session.user
+    user: req.session.user,
+    volunteeredProjects
   });
 
 }

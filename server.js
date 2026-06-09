@@ -11,6 +11,7 @@ import categoryRoute from './routes/categoryRoute.js';
 import projectRoute from './routes/projectRoute.js';
 import organizationRoute from './routes/organizationRoute.js';
 import accountRoute from './routes/accountRoute.js';
+import volunteerRoute from './routes/volunteerRoute.js';
 
 dotenv.config();
 
@@ -80,6 +81,8 @@ app.use('/projects', projectRoute);
 app.use('/organizations', organizationRoute);
 
 app.use('/account', accountRoute);
+
+app.use('/volunteer', volunteerRoute);
 
 /*
 404 PAGE

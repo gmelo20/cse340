@@ -2,6 +2,8 @@ import projectModel from '../models/project-model.js';
 
 import categoryModel from '../models/category-model.js';
 
+import volunteerModel from '../models/volunteer-model.js';
+
 async function buildProjects(req, res) {
 
   const projects =
@@ -32,10 +34,23 @@ async function buildProjectById(req, res) {
   const categories =
     await categoryModel.getCategoriesByProject(projectId);
 
+  let volunteering = false;
+
+  if (req.session && req.session.user) {
+
+    volunteering = await volunteerModel.isVolunteer(
+      req.session.user.user_id,
+      projectId
+    );
+
+  }
+
   res.render('project-details', {
     title: project.project_name,
     project,
-    categories
+    categories,
+    volunteering,
+    user: req.session.user || null
   });
 
 }

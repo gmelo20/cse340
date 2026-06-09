@@ -2,29 +2,47 @@
 
 <div class="project-details">
 
-    <h1>
-        <%= project.project_name %>
-    </h1>
+  <h1><%= project.project_name %></h1>
 
-    <h2>Categorias</h2>
+  <% if (project.project_description) { %>
+    <p><%= project.project_description %></p>
+  <% } %>
 
-    <ul>
+  <h2>Categories</h2>
+
+  <ul>
 
     <% categories.forEach(category => { %>
 
-        <li>
-
-            <a href="/categories/<%= category.category_id %>">
-
-                <%= category.category_name %>
-
-            </a>
-
-        </li>
+      <li>
+        <a href="/categories/<%= category.category_id %>">
+          <%= category.category_name %>
+        </a>
+      </li>
 
     <% }) %>
 
-    </ul>
+  </ul>
+
+  <% if (user) { %>
+
+    <% if (volunteering) { %>
+
+      <p>✅ You are volunteering for this project.</p>
+
+      <form action="/volunteer/remove/<%= project.project_id %>" method="POST">
+        <button type="submit">Remove myself as volunteer</button>
+      </form>
+
+    <% } else { %>
+
+      <form action="/volunteer/add/<%= project.project_id %>" method="POST">
+        <button type="submit">Volunteer for this project</button>
+      </form>
+
+    <% } %>
+
+  <% } %>
 
 </div>
 
